@@ -7,6 +7,7 @@ import "hardhat/console.sol";
 
 contract WavePortal {
     uint256 totalWaves;
+    mapping(address => uint256) public balances;
 
     constructor() {
         console.log("Yo yo, I am a contract and I am smart");
