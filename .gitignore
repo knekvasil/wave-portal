@@ -112,6 +112,8 @@ typechain
 #Hardhat files
 cache
 artifacts
+hardhat.config.js
 
 #Mac files
 .DS_Store
+
