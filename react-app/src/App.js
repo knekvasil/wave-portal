@@ -123,21 +123,15 @@ function App() {
 
 	return (
 		<div className="App">
-			<div className="mainContainer">
-				<div className="dataContainer">
-					<div className="header">👋 Hey there!</div>
+			<div className="header">👋 Hey there!</div>
 
-					<div className="bio">
-						Connect your Ethereum wallet and wave at me!
-					</div>
+			<div className="bio">Connect your Ethereum wallet and wave at me!</div>
 
-					<button className="waveButton" onClick={wave}>
-						Wave at Me
-					</button>
+			<button className="waveButton" onClick={wave}>
+				Wave at Me
+			</button>
 
-					<p>I have been waved at: {CurrentWaveCount} times!</p>
-				</div>
-			</div>
+			<p>I have been waved at: {CurrentWaveCount} times!</p>
 		</div>
 	);
 }
