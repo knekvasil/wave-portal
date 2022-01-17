@@ -50,7 +50,6 @@ function App() {
 					contractABI,
 					signer
 				);
-
 				const waves = await wavePortalContract.getAllWaves();
 
 				let wavesCleaned = [];
@@ -61,6 +60,15 @@ function App() {
 						message: wave.message,
 					});
 				});
+
+				// Method 2:
+				// const wavesCleaned = waves.map((wave) => {
+				// 	return {
+				// 		address: wave.waver,
+				// 		timestamp: new Date(wave.timestamp * 1000),
+				// 		message: wave.message,
+				// 	};
+				// });
 
 				setAllWaves(wavesCleaned);
 			} else {
@@ -161,7 +169,9 @@ function App() {
 				// Loading for spinner
 				setLoading(true);
 
-				const waveTxn = await wavePortalContract.wave(TransactionMessage);
+				const waveTxn = await wavePortalContract.wave(TransactionMessage, {
+					gasLimit: 300000,
+				});
 				console.log("Mining...", waveTxn.hash);
 
 				await waveTxn.wait();
@@ -187,6 +197,39 @@ function App() {
 		checkIfWalletIsConnected();
 		getTotalWaveCount();
 		getAllWaves();
+
+		// Method 2:
+		// let wavePortalContract;
+
+		// const onNewWave = (from, timestamp, message) => {
+		// 	console.log("NewWave", from, timestamp, message);
+		// 	setAllWaves((prevState) => [
+		// 		...prevState,
+		// 		{
+		// 			address: from,
+		// 			timestamp: new Date(timestamp * 1000),
+		// 			message: message,
+		// 		},
+		// 	]);
+		// };
+
+		// if (window.ethereum) {
+		// 	const provider = new ethers.providers.Web3Provider(window.ethereum);
+		// 	const signer = provider.getSigner();
+
+		// 	wavePortalContract = new ethers.Contract(
+		// 		contractAddress,
+		// 		contractABI,
+		// 		signer
+		// 	);
+		// 	wavePortalContract.on("NewWave", onNewWave);
+		// }
+
+		// return () => {
+		// 	if (wavePortalContract) {
+		// 		wavePortalContract.off("NewWave", onNewWave);
+		// 	}
+		// };
 	}, []);
 
 	return (
